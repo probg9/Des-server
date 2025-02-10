@@ -14,7 +14,7 @@ export const AdminContacts = () => {
       setLoading(true);
       setError(null);
 
-      const response = await fetch("http://localhost:5500/api/admin/contacts", {
+      const response = await fetch("https://des-zeta.vercel.app/api/admin/contacts", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -47,7 +47,7 @@ export const AdminContacts = () => {
     if (window.confirm("Are you sure you want to delete this message?")) {
       try {
         const response = await fetch(
-          `http://localhost:5500/api/admin/contacts/delete/${id}`,
+          `https://des-zeta.vercel.app/api/admin/contacts/delete/${id}`,
           {
             method: "DELETE",
             headers: {

@@ -11,7 +11,7 @@ export const AdminForm1 = () => {
 
   const getAllUsersData = async () => {
     try {
-      const response = await fetch("http://localhost:5500/api/forms", {
+      const response = await fetch("https://des-zeta.vercel.app/api/forms", {
         method: "GET",
         headers: {
           Authorization: authorizationToken,
@@ -32,7 +32,7 @@ export const AdminForm1 = () => {
     if (!confirmed) return;
     try {
       const response = await fetch(
-        `http://localhost:5500/api/admin/forms/delete/${id}`,
+        `https://des-zeta.vercel.app/api/admin/forms/delete/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -122,10 +122,10 @@ export const AdminForm1 = () => {
 
               {filteredUsers.map((curUser, index) => {
                 const gaitImageUri = curUser.GaitImage
-                  ? `http://localhost:5500/${curUser.GaitImage}`
+                  ? `https://des-zeta.vercel.app/${curUser.GaitImage}`
                   : null;
                 const postureImageUri = curUser.PostureImage
-                  ? `http://localhost:5500/${curUser.PostureImage}`
+                  ? `https://des-zeta.vercel.app/${curUser.PostureImage}`
                   : null;
                 return (
                   <React.Fragment key={index}>

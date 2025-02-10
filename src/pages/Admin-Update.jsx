@@ -20,7 +20,7 @@ export const AdminUpdate = () => {
   const getSingleUserData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5500/api/admin/users/${params.id}`,
+        `https://des-zeta.vercel.app/api/admin/users/${params.id}`,
         {
           method: "GET",
           headers: {
@@ -61,7 +61,7 @@ export const AdminUpdate = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5500/api/admin/users/update/${params.id}`,
+        `https://des-zeta.vercel.app/api/admin/users/update/${params.id}`,
         {
           method: "PATCH",
           headers: {
