@@ -23,7 +23,7 @@ export const PaymentsUpdate = () => {
   const getSingleUserData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5500/api/admin/payments/${params.id}`,
+        `https://des-zeta.vercel.app/api/admin/payments/${params.id}`,
         {
           method: "GET",
           headers: {
@@ -57,7 +57,7 @@ export const PaymentsUpdate = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5500/api/admin/payments/update/${params.id}`,
+        `https://des-zeta.vercel.app/api/admin/payments/update/${params.id}`,
         {
           method: "PATCH",
           headers: {
