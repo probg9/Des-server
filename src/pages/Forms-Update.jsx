@@ -132,7 +132,7 @@ export const FormsUpdate = () => {
     // Add more indicate pain properties here as needed
   });
   const params = useParams();
-  const { authorizationToken } = useAuth();
+  const { token } = useAuth();
 
   const navigate = useNavigate();
 
@@ -143,10 +143,11 @@ export const FormsUpdate = () => {
         {
           method: "GET",
           headers: {
-            Authorization: authorizationToken,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
+      console.log("responssessss",token)
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -11676,17 +11677,21 @@ export const FormsUpdate = () => {
             <br />
             <br />
 
-            <div style={{ position: "relative", left: "2em", top: "2.9em" }}>
-              <button type="submit" className="btn btn-submit">
-                Save
-              </button>
-
+            <div style={{display:'flex', justifyContent:"space-around",alignItems:"center", marginTop:"8vh"}}>
+            <div className="wrap">
               <button
+                
                 onClick={navigatehome}
-                style={{ position: "relative", left: "43em" }}
+                className="button-form"
               >
                 Back
               </button>
+              </div>
+              <div className="wrap">
+              <button type="submit" className="button-form">
+                Submit
+              </button>
+              </div>
             </div>
           </form>
         </div>

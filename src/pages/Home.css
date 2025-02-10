@@ -1,0 +1,118 @@
+/* Desktop styles - keep existing layout */
+.home-container {
+  width: 100vw;
+  height: 88vh;
+  background-size: cover;
+  background-position: center;
+}
+
+.home-content {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.home-image {
+  height: 64vh;
+  width: 64vh;
+}
+
+.home-text {
+  position: relative;
+  top: 11em;
+  max-width: 900px;
+  font-size: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-title {
+  color: black;
+  margin-bottom: 40vh;
+  margin-left: 8vw;
+}
+
+.home-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+/* Mobile styles */
+@media screen and (max-width: 480px) {
+  .home-container {
+    height: auto;
+    min-height: 100vh;
+    padding: 1rem;
+  }
+
+  .home-content {
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 2rem;
+  }
+
+  .home-image {
+    width: 90%;
+    height: auto;
+    max-height: 40vh;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+
+  .home-text {
+    position: static;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .home-title {
+    font-size: 3rem;
+    margin: 2rem 0;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .home-buttons {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .cta {
+    width: 200px;
+    margin: 0.5rem 0;
+  }
+
+  .hover-underline-animation {
+    font-size: 14px;
+  }
+}
+
+/* Tablet styles */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .home-content {
+    padding: 2rem;
+    gap: 3rem;
+  }
+
+  .home-image {
+    width: 50vh;
+    height: 50vh;
+  }
+
+  .home-text {
+    top: 5em;
+  }
+
+  .home-title {
+    font-size: 2rem;
+    margin-bottom: 20vh;
+  }
+
+  .home-buttons {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+} 

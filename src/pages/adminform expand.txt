@@ -1,0 +1,146 @@
+{expandedIndex === index && (
+                    <tr>
+                      <td colSpan="4" className="expanded-content">
+                        <div className="patient-details">
+                          <h3>Basic Information</h3>
+                          <div className="detail-grid">
+                            <div className="detail-item">
+                              <strong>Date & Time:</strong> {curUser.DateTime}
+                            </div>
+                            <div className="detail-item">
+                              <strong>Type of Form:</strong> {curUser.Type_of_form}
+                            </div>
+                            <div className="detail-item">
+                              <strong>Type of Patient:</strong> {curUser.Type_of_paitent}
+                            </div>
+                            <div className="detail-item">
+                              <strong>Name:</strong> {curUser.Name}
+                            </div>
+                            <div className="detail-item">
+                              <strong>Age:</strong> {curUser.Age}
+                            </div>
+                            <div className="detail-item">
+                              <strong>Gender:</strong> {curUser.Gender}
+                            </div>
+                            <div className="detail-item">
+                              <strong>Contact:</strong> {curUser.Contact_no}
+                            </div>
+                            <div className="detail-item">
+                              <strong>Aadhaar Number:</strong> {curUser.AadhaarNumber}
+                            </div>
+                            <div className="detail-item">
+                              <strong>Address:</strong> {curUser.Address}
+                            </div>
+                            <div className="detail-item">
+                              <strong>Previous Occupation:</strong> {curUser.Previous_Occupation}
+                            </div>
+                          </div>
+
+                          <h3>Medical Information</h3>
+                          <div className="detail-grid">
+                            <div className="detail-item">
+                              <strong>Chief Complaint:</strong> {curUser.Chief_Complaint}
+                            </div>
+                            <div className="detail-item">
+                              <strong>History of Present Illness:</strong> {curUser.HOPI}
+                            </div>
+                            <div className="detail-item">
+                              <strong>Site:</strong> {curUser.Site}
+                            </div>
+                            <div className="detail-item">
+                              <strong>Type:</strong> {curUser.Type}
+                            </div>
+                            <div className="detail-item">
+                              <strong>Medical History:</strong> {curUser.Medical_History}
+                            </div>
+                            <div className="detail-item">
+                              <strong>Surgical History:</strong> {curUser.Surgical_History}
+                            </div>
+                          </div>
+
+                          <h3>Physical Measurements</h3>
+                          <div className="detail-grid">
+                            <div className="detail-item">
+                              <strong>Height:</strong> {curUser.Height}
+                            </div>
+                            <div className="detail-item">
+                              <strong>Weight:</strong> {curUser.Weight}
+                            </div>
+                            <div className="detail-item">
+                              <strong>BMI:</strong> {curUser.BMI}
+                            </div>
+                            <div className="detail-item">
+                              <strong>BP:</strong> {curUser.BP}
+                            </div>
+                            <div className="detail-item">
+                              <strong>PR:</strong> {curUser.PR}
+                            </div>
+                          </div>
+
+                          <h3>Pain Assessment</h3>
+                          <div className="detail-grid">
+                            <div className="detail-item">
+                              <strong>VAS Score:</strong> {curUser.vas}
+                            </div>
+                            <div className="detail-item">
+                              <strong>NRS Neck at Rest:</strong> {curUser.NRSNeck_At_rest}
+                            </div>
+                            <div className="detail-item">
+                              <strong>NRS Neck on Activity:</strong> {curUser.NRSNeck_On_activity}
+                            </div>
+                            <div className="detail-item">
+                              <strong>NRS Back at Rest:</strong> {curUser.NRSBack_At_rest}
+                            </div>
+                            <div className="detail-item">
+                              <strong>NRS Back on Activity:</strong> {curUser.NRSBack_On_activity}
+                            </div>
+                          </div>
+
+                          <h3>Range of Motion</h3>
+                          <div className="detail-grid">
+                            <div className="detail-item">
+                              <strong>Hip Range:</strong> {curUser.HipRange}
+                            </div>
+                            <div className="detail-item">
+                              <strong>Knee Range:</strong> {curUser.KneeRange}
+                            </div>
+                            <div className="detail-item">
+                              <strong>Ankle Range:</strong> {curUser.AnkleRange}
+                            </div>
+                          </div>
+
+                          <h3>Strength Assessment</h3>
+                          <div className="detail-grid">
+                            <div className="detail-item">
+                              <strong>Shoulder Flexors (Right):</strong> {curUser.ShoulderFlexors_Right}
+                            </div>
+                            <div className="detail-item">
+                              <strong>Shoulder Extensors (Right):</strong> {curUser.ShoulderExtensors_Right}
+                            </div>
+                            <div className="detail-item">
+                              <strong>Elbow Flexors (Right):</strong> {curUser.ElbowFlexors_Right}
+                            </div>
+                            <div className="detail-item">
+                              <strong>Elbow Extensors (Right):</strong> {curUser.ElbowExtensors_Right}
+                            </div>
+                            {/* Add more strength assessments as needed */}
+                          </div>
+
+                          <h3>Additional Information</h3>
+                          <div className="detail-grid">
+                            <div className="detail-item">
+                              <strong>Grade of Dyspnoea:</strong> {curUser.Grade_of_Dyspnoea}
+                            </div>
+                            <div className="detail-item">
+                              <strong>Additional Remarks:</strong> {curUser.Additional_remarks}
+                            </div>
+                          </div>
+
+                          <div className="detail-footer">
+                            <p><strong>Form filled by:</strong> {curUser.FilledBy_Name}</p>
+                            <p><strong>Form ID:</strong> {curUser._id}</p>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  )}

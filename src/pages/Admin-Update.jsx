@@ -11,10 +11,10 @@ export const AdminUpdate = () => {
     username: "",
     email: "",
     phone: "",
-    password:"",
+    password: "",
   });
   const params = useParams();
-  const { authorizationToken } = useAuth();
+  const { token } = useAuth();
   const navigate = useNavigate();
 
   const getSingleUserData = async () => {
@@ -24,18 +24,22 @@ export const AdminUpdate = () => {
         {
           method: "GET",
           headers: {
-            Authorization: authorizationToken,
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         }
       );
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
-      console.log(`users single Data :${data}`);
+      console.log("User data:", data);
       setData(data);
-      //  if (response.ok) {
-      //    getAllUsersData();
-      //  }
     } catch (error) {
-      next(error);
+      console.error("Error fetching user data:", error);
+      toast.error("Failed to fetch user data");
     }
   };
   useEffect(() => {
@@ -62,7 +66,7 @@ export const AdminUpdate = () => {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
-            Authorization: authorizationToken,
+            Authorization: `Bearer ${authorizationToken}`,
           },
           body: JSON.stringify(data),
         }
@@ -73,18 +77,18 @@ export const AdminUpdate = () => {
           "Update was successful. Do you want to proceed?"
         );
         if (confirmed) {
-          // Proceed with further actions
           toast.success("Updated successfully");
         } else {
-          // No further action needed
           toast.info("Update canceled");
         }
+        navigate("/admin/users");
       } else {
-        toast.error("Not updated");
+        const errorData = await response.json();
+        toast.error(errorData.message || "Update failed");
       }
-      navigate("/admin/users");
     } catch (error) {
-      console.log(error);
+      console.error("Update error:", error);
+      toast.error("Failed to update user");
     }
   };
 

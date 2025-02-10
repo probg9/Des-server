@@ -1,0 +1,74 @@
+.register-section {
+  background-color: #f0f4f8;
+  padding: 40px 0;
+}
+
+.register-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.registration-image {
+  flex: 1;
+  background-image: url('/images/register.png');
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+}
+
+.registration-form {
+  flex: 1;
+  padding: 40px;
+  background-color: white;
+}
+
+.registration-title {
+  font-size: 28px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.button-container {
+  text-align: center;
+}
+
+.button-pay {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.button-pay:hover {
+  background-color: #0056b3;
+} 

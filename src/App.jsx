@@ -23,6 +23,9 @@ import { FormsUpdate } from "./pages/Forms-Update.jsx";
 import { PaymentsUpdate } from "./pages/Payments-Update";
 import { Records } from "./pages/Records.jsx";
 import { AdminForm1 } from "./pages/AdminForm1";
+import { EditForm } from "./pages/EditForm";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { PatientDetails } from "./pages/PatientDetails";
 
 const App = () => {
   return (
@@ -49,11 +52,13 @@ const App = () => {
             <Route path="users" element={<AdminUsers />} />
             <Route path="contacts" element={<AdminContacts />} />
             <Route path="payments" element={<AdminPayments />} />
-            <Route path="forms" element={<AdminForm />} />
+            <Route path="forms" element={<ProtectedRoute><AdminForm /></ProtectedRoute>} />
             <Route path="users/:id/edit" element={<AdminUpdate />} />
             <Route path="forms/:id/edit" element={<FormsUpdate />} />
             <Route path="payments/:id/edit" element={<PaymentsUpdate />} />
+            <Route path="forms/:id/edit" element={<EditForm />} />
           </Route>
+          <Route path="/admin/patients/:id" element={<PatientDetails />} />
         </Routes>
       </BrowserRouter>
     </>

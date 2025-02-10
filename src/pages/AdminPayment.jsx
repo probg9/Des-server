@@ -3,142 +3,143 @@ import { useAuth } from "../store/auth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
 export const AdminPayments = () => {
-  const [users, setUsers] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const { authorizationToken } = useAuth();
+  const [payments, setPayments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { token } = useAuth();
 
-  const getAllUsersData = async () => {
+  const getAllPaymentsData = async () => {
     try {
+      setLoading(true);
+      setError(null);
+      
       const response = await fetch("http://localhost:5500/api/admin/payments", {
         method: "GET",
         headers: {
-          Authorization: authorizationToken,
+          Authorization: `Bearer ${token}`,
         },
       });
+
       const data = await response.json();
-      console.log(`payments ${data}`);
-      setUsers(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const deletePaymentById = async (id) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this Payment form?"
-    );
-    if (!confirmed) return;
-    try {
-      const response = await fetch(
-        `http://localhost:5500/api/admin/payments/delete/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: authorizationToken,
-          },
-        }
-      );
-
-      if (response.ok) {
-        getAllUsersData();
-        toast.success("Deleted successfully");
+      console.log("Payments data:", data);
+      
+      // Check if data is an array directly
+      if (Array.isArray(data)) {
+        setPayments(data);
+      } else if (data.payments && Array.isArray(data.payments)) {
+        setPayments(data.payments);
       } else {
-        toast.error("Deletion failed");
+        throw new Error("Invalid payment data format");
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching payments:", error);
+      setError(error.message);
+      toast.error("Failed to load payments");
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    getAllUsersData();
-  }, []);
+    getAllPaymentsData();
+  }, [token]);
 
-  const handleSearch = (event) => {
-    setSearchQuery(event.target.value);
+  const deletePayment = async (id) => {
+    if (window.confirm("Are you sure you want to delete this payment record?")) {
+      try {
+        const response = await fetch(
+          `http://localhost:5500/api/admin/payments/delete/${id}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.ok) {
+          toast.success("Payment record deleted successfully");
+          getAllPaymentsData();
+        } else {
+          const data = await response.json();
+          throw new Error(data.message || "Failed to delete payment record");
+        }
+      } catch (error) {
+        console.error("Delete error:", error);
+        toast.error(error.message);
+      }
+    }
   };
 
-  const filteredUsers = users.filter((user) =>
-    user.username.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  if (loading) {
+    return <div className="loading">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="error">Error: {error}</div>;
+  }
 
   return (
-    <>
-      <body
-        className="adminbody"
-        style={{ background: "white", position: "relative", top: "-6.5em" }}
-      >
-        <section className="admin-users-section">
-          <div className="container">
-            <h1 style={{ fontSize: "40px", color: "black" }}>Payment data</h1>
-            <input
-              type="text"
-              placeholder="Search by name"
-              value={searchQuery}
-              onChange={handleSearch}
-              style={{
-                marginBottom: "1em",
-                borderRadius: "5px 5px 5px 5px",
-                border: "2px solid black",
-                position: "relative",
-                top: "0.7em",
-                height: "40px",
-                width: "450px",
-              }}
-            />
-          </div>
-          <div className="container admin-user">
-            <table
-              className="table-alternate-rows"
-              cellSpacing="0"
-              style={{
-                width: "1600px",
-                textAlign: "center",
-                fontSize: "14px",
-                color: "black",
-                fontStyle: "italic",
-              }}
-            >
-              <thead>
-                <tr>
-                  <th className="row">Name</th>
-                  <th className="row">Phone Number</th>
-                  <th className="row">Payment&nbsp;Method</th>
-                  <th className="row">Amount</th>
-                  <th className="row">Transaction id</th>
-                  <th className="row">Date and time</th>
-                  <th>Edit Data</th>
-                  <th>Delete Data</th>
+    <div className="admin-forms-container">
+      <h1 className="admin-forms-title">Payment Records</h1>
+      
+      {payments.length === 0 ? (
+        <p className="no-data">No payment records available</p>
+      ) : (
+        <div className="table-responsive">
+          <table className="admin-forms-table">
+            <thead>
+              <tr>
+                <th>Sr. No.</th>
+                <th>Date & Time</th>
+                <th>Patient Name</th>
+                <th>Contact</th>
+                <th>Payment Method</th>
+                <th>Amount (₹)</th>
+                <th>Transaction ID</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {payments.map((payment, index) => (
+                <tr key={payment._id}>
+                  <td>{index + 1}</td>
+                  <td>{payment.time || new Date(payment.createdAt).toLocaleString('en-US', {
+                    dateStyle: 'medium',
+                    timeStyle: 'short'
+                  })}</td>
+                  <td className="username-cell">{payment.username || "N/A"}</td>
+                  <td>{payment.phone || "N/A"}</td>
+                  <td>
+                    <span className={`payment-method ${payment.payment_method?.toLowerCase()}`}>
+                      {payment.payment_method || "N/A"}
+                    </span>
+                  </td>
+                  <td className="amount">₹{payment.amount || "0"}</td>
+                  <td>{payment.number || "N/A"}</td>
+                  <td className="action-buttons">
+                    <Link 
+                      to={`/admin/payments/${payment._id}/edit`}
+                      className="edit-button"
+                    >
+                      <FaEdit /> Edit
+                    </Link>
+                    <button 
+                      onClick={() => deletePayment(payment._id)}
+                      className="delete-button"
+                    >
+                      <FaTrash /> Delete
+                    </button>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {filteredUsers.map((curUser, index) => (
-                  <tr key={index}>
-                    <td className="row">{curUser.username}</td>
-                    <td className="row">{curUser.phone}</td>
-                    <td className="row">{curUser.payment_method}</td>
-                    <td className="row">{curUser.amount}</td>
-                    <td className="row">{curUser.number}</td>
-                    <td className="row">{curUser.time}</td>
-                    <td className="row">
-                      <Link to={`/admin/payments/${curUser._id}/edit`}>
-                        <button>Edit</button>
-                      </Link>
-                    </td>
-                    <td className="row">
-                      <button onClick={() => deletePaymentById(curUser._id)}>
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-      </body>
-    </>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
   );
 };

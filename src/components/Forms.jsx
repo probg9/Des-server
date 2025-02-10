@@ -341,6 +341,7 @@ export const Forms = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     const phonePattern = /^\d{10}$/;
     if (!phonePattern.test(user.Contact_no)) {
       toast.error("Please enter a valid 10-digit phone number.");
@@ -624,6 +625,7 @@ export const Forms = () => {
       }
     } catch (error) {
       console.log(error);
+      toast.error(error)
     }
   };
 
@@ -895,15 +897,16 @@ export const Forms = () => {
             </div>
             <br />
             <br />
-            <div className="nrs" style={{ height: "690px" }}>
+            <div className="nrs" style={{ height: "100%" }}>
               Pain Site(Left Side)
               <br />
-              <div className="nrsbox" style={{ height: "620px" }}>
+              <div className="nrsbox" style={{ height: "100%" }}>
+                {/* fksfsdf fs dfsd fd sf f s f s f s df sf sf s f s f s  f s fs df sdf  sf  sf s f s f s f s f sd fs fs d f  */}
                 <table
                   className="nrs-table"
-                  style={{ height: "600px", width: "600px" }}
+                  // style={{height:"100%", width: "600px" }}
                   cellspacing="0"
-                  cellpadding="1"
+                  cellpadding="3"
                 >
                   <tr>
                     <td></td>
@@ -3020,9 +3023,9 @@ export const Forms = () => {
                 autoCapitalize="off"
               ></input>
             </div>
-            <div className="strength-table" style={{ height: "1200" }}>
+            <div className="strength-table" style={{ height: "1200px" }}>
               Indicate Pain
-              <div className="deformities-box" style={{ height: "1080px" }}>
+              <div className="deformities-box2">
                 <img
                   src="https://img.freepik.com/premium-vector/line-figure-person-front-back-side-man-woman-human-three-angles-diagrams_399998-143.jpg"
                   alt=""
@@ -3686,11 +3689,11 @@ export const Forms = () => {
             </div>
             <img
               src="https://spacecoastdaily.com/wp-content/uploads/2018/02/Pain_Scale__Arvin61r58-2.png"
-              className="rounded mx-auto d-block"
+              className="pain-scale"
               alt=""
-              style={{ marginLeft: "100px" }} // Adjust the value as needed
             />
             <br />
+
             <span style={{ fontWeight: "bold", marginLeft: "170px" }}>
               {" "}
               Use face pain rating scale image for below...
@@ -6340,9 +6343,9 @@ export const Forms = () => {
               />
             </div>
             <br />
-            <div className="strength-table" style={{ height: "880px" }}>
+            <div className="strength-table">
               Strength(Right)
-              <div className="deformities-box" style={{ height: "980px" }}>
+              <div className="deformities-box" style={{ height: 'max-content' }}>
                 <div className="Strength">
                   <table
                     cellspacing="0"
@@ -9610,7 +9613,7 @@ export const Forms = () => {
             <div className="deformities">
               Deformities
               <br />
-              <div className="deformities-box">
+              <div className="deformities-box" style={{width:"auto" , height:"auto", marginBottom:"50px"}}>
                 <input
                   className="radio"
                   type="checkbox"
@@ -9694,13 +9697,13 @@ export const Forms = () => {
                 <br />
               </div>
             </div>
-            <div className="nrs" style={{ height: "690px" }}>
+            <div className="nrs" style={{ height: "100%" }}>
               Lower Extremity Function Scale
               <br />
-              <div className="nrsbox" style={{ height: "1050px" }}>
+              <div className="nrsbox" style={{ height: "auto" }}>
                 <table
                   className="nrs-table"
-                  style={{ height: "600px", width: "720px" }}
+                  style={{ height: "auto", width: "720px" }}
                   cellspacing="0"
                   cellpadding="1"
                 >
@@ -9717,7 +9720,7 @@ export const Forms = () => {
                   </tr>
 
                   <tr>
-                    <td>
+                    <td className="text-long-form" >
                       Any of your usual work,housework or school activities
                     </td>
                     <td>
@@ -9776,7 +9779,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <td className="text-long-form" >
                       Your usual hobbies,recreational or sporting activities
                     </td>
                     <td>
@@ -9835,7 +9838,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>Getting into or out of the bath</td>
+                    <td className="text-long-form" >Getting into or out of the bath</td>
                     <td>
                       <input
                         type="radio"
@@ -9892,7 +9895,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>Walking between rooms</td>
+                    <td className="text-long-form" >Walking between rooms</td>
                     <td>
                       <input
                         type="radio"
@@ -9949,7 +9952,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>Putting on your shoes or socks</td>
+                    <td className="text-long-form" >Putting on your shoes or socks</td>
                     <td>
                       <input
                         type="radio"
@@ -10006,7 +10009,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>Squatting</td>
+                    <td className="text-long-form">Squatting</td>
                     <td>
                       <input
                         type="radio"
@@ -10063,7 +10066,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <td className="text-long-form">
                       Lifting an object,like a bag of groceries from the floor
                     </td>
                     <td>
@@ -10122,7 +10125,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>Performing light activities around your home</td>
+                    <td className="text-long-form">Performing light activities around your home</td>
                     <td>
                       <input
                         type="radio"
@@ -10179,7 +10182,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>Performing heavy activities around your home</td>
+                    <td className="text-long-form">Performing heavy activities around your home</td>
                     <td>
                       <input
                         type="radio"
@@ -10236,7 +10239,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>Getting into or out of car/rickshaw</td>
+                    <td className="text-long-form">Getting into or out of car/rickshaw</td>
                     <td>
                       <input
                         type="radio"
@@ -10293,7 +10296,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>Getting onto or off a 2-wheeler</td>
+                    <td className="text-long-form">Getting onto or off a 2-wheeler</td>
                     <td>
                       <input
                         type="radio"
@@ -10350,7 +10353,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>Walking 2 blocks/2 chowks.</td>
+                    <td className="text-long-form">Walking 2 blocks/2 chowks.</td>
                     <td>
                       <input
                         type="radio"
@@ -10407,7 +10410,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>Walking a mile.</td>
+                    <td className="text-long-form">Walking a mile.</td>
                     <td>
                       <input
                         type="radio"
@@ -10464,7 +10467,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>Going up or down 10 stairs</td>
+                    <td className="text-long-form">Going up or down 10 stairs</td>
                     <td>
                       <input
                         type="radio"
@@ -10521,7 +10524,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>Standing for 1 hour</td>
+                    <td className="text-long-form">Standing for 1 hour</td>
                     <td>
                       <input
                         type="radio"
@@ -10578,7 +10581,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>Sitting for 1 hour</td>
+                    <td className="text-long-form"> Sitting for 1 hour</td>
                     <td>
                       <input
                         type="radio"
@@ -10635,7 +10638,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>Running on Even Ground</td>
+                    <td className="text-long-form">Running on Even Ground</td>
                     <td>
                       <input
                         type="radio"
@@ -10692,7 +10695,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>Running on Uneven Ground</td>
+                    <td className="text-long-form">Running on Uneven Ground</td>
                     <td>
                       <input
                         type="radio"
@@ -10749,7 +10752,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>Making sharp turns while running</td>
+                    <td className="text-long-form">Making sharp turns while running</td>
                     <td>
                       <input
                         type="radio"
@@ -10806,7 +10809,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>Hopping</td>
+                    <td className="text-long-form">Hopping</td>
                     <td>
                       <input
                         type="radio"
@@ -10863,7 +10866,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>Rolling over in bed</td>
+                    <td className="text-long-form">Rolling over in bed</td>
                     <td>
                       <input
                         type="radio"
@@ -10924,29 +10927,15 @@ export const Forms = () => {
             </div>
             <br />
             <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <div className="nrs" style={{ height: "690px" }}>
-              The Osteoporosis Knowledge Assessment Tool
+            <div className="nrs" style={{ height: "100%" }}><br/><br/>
+              <h4>The Osteoporosis Knowledge Assessment Tool</h4>
               <br />
-              <div className="nrsbox" style={{ height: "820px" }}>
+              <div className="nrsbox" style={{ height: "100%" }}>
                 <table
                   className="nrs-table"
-                  style={{ height: "600px", width: "720px" }}
+                  style={{ height: "100%", width: "720px" }}
                   cellspacing="0"
-                  cellpadding="1"
+                  cellpadding="3"
                 >
                   <tr>
                     <td></td>
@@ -10956,7 +10945,7 @@ export const Forms = () => {
                   </tr>
 
                   <tr>
-                    <td>
+                    <td className="text-long-form">
                       Osteoporosis leads to an increase risk of bone fractures
                     </td>
                     <td>
@@ -10989,7 +10978,7 @@ export const Forms = () => {
                   </tr>
 
                   <tr>
-                    <td>
+                    <td className="text-long-form">
                       Osteoporosis usually causes symptoms(eg.pain)before
                       fractures occur
                     </td>
@@ -11022,7 +11011,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <td className="text-long-form">
                       Having a higher peak bone mass at the end of childhood
                       gives no protection against the development of
                       osteoporosis in later life
@@ -11056,7 +11045,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>Osteoporosis is more common in men</td>
+                    <td className="text-long-form">Osteoporosis is more common in men</td>
                     <td>
                       <input
                         type="radio"
@@ -11086,7 +11075,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>Cigarette smoking can contribute to osteoporosis</td>
+                    <td className="text-long-form">Cigarette smoking can contribute to osteoporosis</td>
                     <td>
                       <input
                         type="radio"
@@ -11116,7 +11105,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <td className="text-long-form">
                       White women are at highest risk of fracture as compared to
                       other races
                     </td>
@@ -11149,7 +11138,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <td className="text-long-form">
                       A fall is just as important as low bone strength in
                       causing fractures
                     </td>
@@ -11182,7 +11171,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>By age 80,The majority of women have osteoporosis</td>
+                    <td className="text-long-form">By age 80,The majority of women have osteoporosis</td>
                     <td>
                       <input
                         type="radio"
@@ -11212,7 +11201,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <td className="text-long-form">
                       From age 50,Most women can expect atleast one fracture
                       before they die
                     </td>
@@ -11245,7 +11234,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <td className="text-long-form">
                       Any type of physical activity is beneficial for
                       osteoporosis
                     </td>
@@ -11278,7 +11267,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <td className="text-long-form">
                       It is easy to tell wheather I am at risk of osteoporosis
                       by my clinical risk factor
                     </td>
@@ -11311,7 +11300,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <td className="text-long-form">
                       Family history of osteoporosis strongly predisposes a
                       person to osteoporosis
                     </td>
@@ -11344,7 +11333,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <td className="text-long-form">
                       An adequate calcium intake can be achieved from two
                       glasses of milk a day
                     </td>
@@ -11377,7 +11366,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <td className="text-long-form">
                       Sardines and broccoli are good sources of calcium for
                       people who cannot take dairy products
                     </td>
@@ -11410,7 +11399,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>Calcium supplements alone can prevent bone loss</td>
+                    <td className="text-long-form">Calcium supplements alone can prevent bone loss</td>
                     <td>
                       <input
                         type="radio"
@@ -11440,7 +11429,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <td className="text-long-form">
                       Alcohol in moderation has little effect on osteoporosis
                     </td>
                     <td>
@@ -11473,7 +11462,7 @@ export const Forms = () => {
                   </tr>
 
                   <tr>
-                    <td>
+                    <td className="text-long-form">
                       A high salt intake is a risk factor for osteoporosis
                     </td>
                     <td>
@@ -11505,7 +11494,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <td className="text-long-form">
                       There is small amount of bone loss in the ten years
                       following the onset of menopause
                     </td>
@@ -11538,7 +11527,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <td className="text-long-form">
                       Hormone therapy prevents further bone loss at any age
                       after menopause
                     </td>
@@ -11571,7 +11560,7 @@ export const Forms = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <td className="text-long-form">
                       There are no effective treatments for osteoporosis
                       available in India.
                     </td>
@@ -11613,9 +11602,8 @@ export const Forms = () => {
             <br />
             <br />
             <br />
-            <div className="element">
-              6 Minute Walk Test
-              <br />
+            <div className="element"><br/><br/>
+              <h4>6 Minute Walk Test</h4>
               <input
                 className="box"
                 type="text"
@@ -11625,6 +11613,7 @@ export const Forms = () => {
                 value={user.SixMinuteWalkTest}
               />
             </div>
+              <br />
             <div className="element">
               Grade of Dyspnoea
               <br />
@@ -11642,7 +11631,8 @@ export const Forms = () => {
               <br />
               <br />
               <textarea
-                style={{ height: "100px", width: "500px" }}
+                // style={{ height: "100px", width: "max-content" }}
+                className="Additional"
                 placeholder=" Enter the additional information(if necessary)"
                 name="Additional_remarks"
                 onChange={handleInput}
@@ -11654,17 +11644,22 @@ export const Forms = () => {
             <br />
             <br />
 
-            <div style={{ position: "relative", left: "3em", top: "1em" }}>
-              <button type="submit" className="btn btn-submit">
-                Submit
-              </button>
-
+            <div style={{display:'flex', justifyContent:"space-around",alignItems:"center", marginTop:"3vh", marginBottom:"6vh"}}>
+              <div className="wrap">
               <button
-                style={{ position: "relative", left: "40em" }}
+                
                 onClick={navigatehome}
+                className="button-form"
               >
                 Back
               </button>
+              </div>
+              <div className="wrap">
+              <button type="submit" className="button-form">
+                Submit
+              </button>
+              </div>
+
             </div>
           </form>
         </div>

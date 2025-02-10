@@ -5,6 +5,7 @@ import "./Forms.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { FaRupeeSign, FaCreditCard, FaUser, FaPhone, FaEnvelope } from "react-icons/fa";
 
 const defaultPaymentFormData = {
   username: "",
@@ -16,256 +17,251 @@ const defaultPaymentFormData = {
 };
 
 export const Payment = () => {
-  const [payment, setpayment] = useState(defaultPaymentFormData);
-  const [isPaymentMethodFilled, setIsPaymentMethodFilled] = useState(true);
-  const [userData, setUserData] = useState(true);
-  const { user } = useAuth();
+  const [paymentData, setPaymentData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    amount: "",
+    payment_purpose: "",
+    payment_date: new Date().toISOString().split('T')[0],
+    payment_mode: "Cash",
+    transaction_id: "",
+    status: "Completed"
+  });
+
+  const [loading, setLoading] = useState(false);
+  const { token } = useAuth();
   const navigate = useNavigate();
 
-  if (userData && user) {
-    setpayment({
-      username: "",
-      phone: "",
-      payment_method: "",
-      amount: "",
-      number: "",
-      time: "",
-    });
-    setUserData(false);
-  }
-
-  // lets tackle our handleInput
   const handleInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-
-    setpayment({
-      ...payment,
+    setPaymentData({
+      ...paymentData,
       [name]: value,
     });
   };
 
-  const Selectedvalue = (event) => {
-    setUserData(event.target.value);
-  };
-
-  // handle fomr getFormSubmissionInfo
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const phonePattern = /^\d{10}$/;
-    if (!phonePattern.test(payment.phone)) {
-      toast.error("Please enter a valid 10-digit phone number.");
-      return;
-    }
-    if (!payment.payment_method) {
-      setIsPaymentMethodFilled(false); // Set isPaymentMethodFilled to false if payment method is not filled
-      return;
-    }
+    setLoading(true);
+
     try {
-      const response = await fetch("http://localhost:5500/api/form/payment", {
+      // Validate required fields
+      if (!paymentData.name || !paymentData.phone || !paymentData.amount || !paymentData.payment_purpose) {
+        toast.error("Please fill in all required fields");
+        return;
+      }
+
+      // Log the data being sent
+      console.log("Sending payment data:", paymentData);
+
+      // Make sure this URL matches your backend endpoint
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/form/payment`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(payment),
+        body: JSON.stringify(paymentData),
       });
 
-      if (response.ok) {
-        navigate("/");
-        setpayment(defaultPaymentFormData);
-
-        const data = await response.json();
-        console.log(data);
-        toast.success("Data added Succesfully!");
+      // Check if response is ok before trying to parse JSON
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Error response:', errorText);
+        
+        // Add more specific error handling based on status codes
+        if (response.status === 404) {
+          throw new Error('Payment endpoint not found. Please check the API endpoint.');
+        } else if (response.status === 401) {
+          throw new Error('Authentication failed. Please login again.');
+        } else {
+          throw new Error('Failed to record payment. Please try again.');
+        }
       }
+
+      const data = await response.json();
+      toast.success(data.message || "Payment recorded successfully");
+      
+      // Reset form
+      setPaymentData({
+        name: "",
+        email: "",
+        phone: "",
+        amount: "",
+        payment_purpose: "",
+        payment_date: new Date().toISOString().split('T')[0],
+        payment_mode: "Cash",
+        transaction_id: "",
+        status: "Completed"
+      });
+      
+      // Redirect after successful payment
+      navigate("/");
+
     } catch (error) {
-      console.log(error);
+      console.error("Payment Error:", error);
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <>
-      <div className="back">
-        <div
-          style={{
-            backgroundColor: "white",
-            height: "760px",
-            width: "950px",
-            position: "relative",
-            left: "15em",
-            top: "4em",
-            display: "flex",
-            // border: "1px solid black",
-          }}
-        >
-          <div
-            style={{
-              backgroundImage: `url("images/Payment.jpg")`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              width: "280px",
-              height: "760px",
-            }}
-          ></div>
-          <div
-            style={{ position: "relative", left: "10em", fontFamily: "ariel" }}
-          >
-            <br />
-            <h1 style={{ position: "relative", left: "2em", color: "black" }}>
-              Payment Form
-            </h1>
-            <br />
-            <br />
-
-            <div
-              style={{
-                color: "black",
-                fontSize: "17.5px",
-                postion: "relative",
-                left: "1em",
-              }}
-            >
-              <form onSubmit={handleSubmit}>
-                <div style={{ position: "relative", left: "6em" }}>
-                  Enter the payment details of paitent.
-                </div>
-                <br />
-                <br />
-                <div>
-                  &nbsp;&nbsp;Enter the paitent name
-                  <br />
-                  <input
-                    type="text"
-                    className="info"
-                    name="username"
-                    placeholder=" Enter paitent name"
-                    value={payment.username}
-                    onChange={handleInput}
-                    required
-                  />
-                </div>
-                <div style={{ position: "relative", top: "1.5em" }}>
-                  &nbsp;&nbsp;Contact Number
-                  <br />
-                  <input
-                    type="text" // Changed type to "text"
-                    className="info"
-                    name="phone"
-                    id="phone"
-                    autoComplete="off"
-                    placeholder=" Enter 10 digit contact number"
-                    value={payment.phone}
-                    onChange={handleInput}
-                    required
-                  />
-                </div>
-
-                <div style={{ position: "relative", top: "4em" }}>
-                  &nbsp;&nbsp;Select Payment Method &nbsp;&nbsp;
-                  <br />
-                  <div
-                    className="box1"
-                    style={{
-                      width: "450px",
-                      position: "relative",
-                      top: "1em",
-                      left: "1em",
-                    }}
-                  >
+    <div className="back" style={{height:"88vh"}}>
+      <div className="payment-container">
+        <div className="payment-image"></div>
+        <div className="payment-form-container">
+          <h1 className="payment-title">
+            <FaRupeeSign className="payment-icon" /> Payment Form
+          </h1>
+          
+          <div className="payment-form">
+            <form onSubmit={handleSubmit}>
+              <div className="form-grid">
+                {/* Personal Information */}
+                <div className="form-section">
+                  <h2>Personal Information</h2>
+                  <div className="input-group">
+                    <label htmlFor="name">
+                      <FaUser /> Full Name *
+                    </label>
                     <input
-                      className="radio"
-                      type="radio"
-                      onChange={handleInput}
-                      name="payment_method"
-                      value="UPI"
+                      type="text"
+                      name="name"
+                      id="name"
                       required
-                    />
-                    UPI
-                    <input
-                      className="radio"
-                      type="radio"
+                      autoComplete="name"
+                      value={paymentData.name}
                       onChange={handleInput}
-                      name="payment_method"
-                      value="Cash"
+                      placeholder="Enter full name"
                     />
-                    Cash
-                    <input
-                      className="radio"
-                      type="radio"
-                      onChange={handleInput}
-                      name="payment_method"
-                      value="Cheque"
-                    />
-                    Cheque
-                    <input
-                      className="radio"
-                      type="radio"
-                      onChange={handleInput}
-                      name="payment_method"
-                      value="Cheque"
-                    />
-                    Others
                   </div>
-                  <br />
-                </div>
-                {!isPaymentMethodFilled && (
-                  <p style={{ color: "red" }}>
-                    Please select a payment method.
-                  </p>
-                )}
-                <div style={{ position: "relative", top: "5.5em" }}>
-                  &nbsp;&nbsp;Enter the amount
-                  <br />
-                  <input
-                    type="text"
-                    className="info"
-                    name="amount"
-                    value={payment.amount}
-                    onChange={handleInput}
-                    placeholder=" Enter amount in RS."
-                    required
-                  />
-                </div>
-                <div style={{ position: "relative", top: "7.5em" }}>
-                  &nbsp;&nbsp;Enter Transaction Id/Cheque Number (If Applicable)
-                  <br />
-                  <input
-                    type="text"
-                    className="info"
-                    name="number"
-                    placeholder=" Enter id"
-                    value={payment.number}
-                    onChange={handleInput}
-                  />
-                </div>
-                <br />
-                <div style={{ position: "relative", top: "7.5em" }}>
-                  &nbsp;&nbsp;Enter Transaction date and time
-                  <br />
-                  <input
-                    type="text"
-                    className="info"
-                    placeholder=" dd-mm-yy  00:00 AM"
-                    name="time"
-                    value={payment.time}
-                    onChange={handleInput}
-                    required
-                  />
+
+                  <div className="input-group">
+                    <label htmlFor="email">
+                      <FaEnvelope /> Email
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      id="email"
+                      autoComplete="email"
+                      value={paymentData.email}
+                      onChange={handleInput}
+                      placeholder="Enter email address"
+                    />
+                  </div>
+
+                  <div className="input-group">
+                    <label htmlFor="phone">
+                      <FaPhone /> Phone Number *
+                    </label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      id="phone"
+                      required
+                      autoComplete="tel"
+                      value={paymentData.phone}
+                      onChange={handleInput}
+                      placeholder="Enter phone number"
+                    />
+                  </div>
                 </div>
 
-                <br />
-                <button
-                  type="submit"
-                  className="btn btn-submit"
-                  style={{ position: "relative", top: "10em", left: "15em" }}
-                >
-                  Submit
-                </button>
-              </form>
-            </div>
+                {/* Payment Details */}
+                <div className="form-section">
+                  <h2>Payment Details</h2>
+                  <div className="input-group">
+                    <label htmlFor="amount">
+                      <FaRupeeSign /> Amount *
+                    </label>
+                    <input
+                      type="number"
+                      name="amount"
+                      id="amount"
+                      required
+                      value={paymentData.amount}
+                      onChange={handleInput}
+                      placeholder="Enter amount"
+                      min="0"
+                    />
+                  </div>
+
+                  <div className="input-group">
+                    <label htmlFor="payment_purpose">
+                      <FaCreditCard /> Payment Purpose *
+                    </label>
+                    <select
+                      name="payment_purpose"
+                      id="payment_purpose"
+                      required
+                      value={paymentData.payment_purpose}
+                      onChange={handleInput}
+                    >
+                      <option value="">Select purpose</option>
+                      <option value="Consultation">Consultation</option>
+                      <option value="Treatment">Treatment</option>
+                      <option value="Medicine">Medicine</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+
+                  <div className="input-group">
+                    <label htmlFor="payment_date">Payment Date *</label>
+                    <input
+                      type="date"
+                      name="payment_date"
+                      id="payment_date"
+                      required
+                      value={paymentData.payment_date}
+                      onChange={handleInput}
+                    />
+                  </div>
+
+                  <div className="input-group">
+                    <label htmlFor="payment_mode">Payment Mode *</label>
+                    <select
+                      name="payment_mode"
+                      id="payment_mode"
+                      required
+                      value={paymentData.payment_mode}
+                      onChange={handleInput}
+                    >
+                      <option value="Cash">Cash</option>
+                      <option value="UPI">UPI</option>
+                      <option value="Card">Card</option>
+                      <option value="Net Banking">Net Banking</option>
+                    </select>
+                  </div>
+
+                  <div className="input-group">
+                    <label htmlFor="transaction_id">Transaction ID</label>
+                    <input
+                      type="text"
+                      name="transaction_id"
+                      id="transaction_id"
+                      value={paymentData.transaction_id}
+                      onChange={handleInput}
+                      placeholder="Enter transaction ID (if applicable)"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <button 
+                type="submit" 
+                className="submit-button"
+                disabled={loading}
+              >
+                <FaRupeeSign /> {loading ? "Processing..." : "Record Payment"}
+              </button>
+            </form>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };

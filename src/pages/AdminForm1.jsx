@@ -160,7 +160,7 @@ export const AdminForm1 = () => {
                         >
                           <div
                             className="row1"
-                            style={{ position: "relative", left: "2em" }}
+                            style={{ position: "relative",backgroundColor:"red", left: "2em" }}
                           >
                             <div className="title">Primary Details</div>
                             <br />
