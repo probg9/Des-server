@@ -107,19 +107,19 @@ export const AdminPayments = () => {
               {payments.map((payment, index) => (
                 <tr key={payment._id}>
                   <td>{index + 1}</td>
-                  <td>{payment.time || new Date(payment.createdAt).toLocaleString('en-US', {
+                  <td>{payment.payment_date.slice(0,10)} Time : {payment.payment_date.slice(11,19) || new Date(payment.createdAt).toLocaleString('en-US', {
                     dateStyle: 'medium',
                     timeStyle: 'short'
                   })}</td>
-                  <td className="username-cell">{payment.username || "N/A"}</td>
+                  <td className="username-cell">{payment.name || "N/A"}</td>
                   <td>{payment.phone || "N/A"}</td>
                   <td>
-                    <span className={`payment-method ${payment.payment_method?.toLowerCase()}`}>
-                      {payment.payment_method || "N/A"}
+                    <span className={`payment-method ${payment.payment_mode?.toLowerCase()}`}>
+                      {payment.payment_mode || "N/A"}
                     </span>
                   </td>
                   <td className="amount">₹{payment.amount || "0"}</td>
-                  <td>{payment.number || "N/A"}</td>
+                  <td>{payment.transaction_id || "N/A"}</td>
                   <td className="action-buttons">
                     <Link 
                       to={`/admin/payments/${payment._id}/edit`}

@@ -46,11 +46,14 @@ export const AdminLayout = () => {
           <NavLink to="/admin/contacts" className="admin-nav-link">
             <FaEnvelope /> <span>Messages</span>
           </NavLink>
+          <NavLink to="/admin/register" className="admin-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+          <FaUsers /><div >Register</div>
+          </NavLink>
         </nav>
       </div>
 
       {isMobile && (
-        <button 
+        <button
           className={`mobile-nav-toggle ${isSidebarOpen ? 'active' : ''}`}
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         >

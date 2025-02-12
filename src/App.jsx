@@ -26,6 +26,7 @@ import { AdminForm1 } from "./pages/AdminForm1";
 import { EditForm } from "./pages/EditForm";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { PatientDetails } from "./pages/PatientDetails";
+import { Gohome } from "./pages/Gohome.jsx";
 
 const App = () => {
   return (
@@ -35,7 +36,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/gohome" element={<Gohome />} />
           <Route path="/login" element={<Login />} />
           <Route path="/adminlogin" element={<Alogin />} />
           <Route path="/contact" element={<Contact />} />
@@ -44,11 +45,12 @@ const App = () => {
           <Route path="/loginfirst" element={<LoginFirst />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/form" element={<Forms />} />
-          <Route path="/forms" element={<AdminForm1 />} />{" "}
+          <Route path="/forms" element={<AdminForm />} />{" "}
           <Route path="/payment" element={<Payment />} />
           <Route path="/records/:id/edit" element={<RecordUpdate />} />
           <Route path="*" element={<Error />} />
           <Route path="/admin" element={<AdminLayout />}>
+            <Route path="register" element={<Register />}/>
             <Route path="users" element={<AdminUsers />} />
             <Route path="contacts" element={<AdminContacts />} />
             <Route path="payments" element={<AdminPayments />} />

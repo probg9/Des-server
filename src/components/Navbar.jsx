@@ -4,7 +4,7 @@ import { useAuth } from "../store/auth";
 import { useState } from "react";
 
 export const Navbar = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, user } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -57,11 +57,14 @@ export const Navbar = () => {
                       <div className="color">Form</div>
                     </NavLink>
                   </li>
-                  <li>
+                  {/* { !user.isAdmin ? (<></>) :
+                    (<li>
                     <NavLink to="/register" onClick={() => setIsMobileMenuOpen(false)}>
                       <div className="color">Register</div>
                     </NavLink>
-                  </li>
+                  </li>)
+                  } */}
+                  
                   <li>
                     <NavLink to="/logout" onClick={() => setIsMobileMenuOpen(false)}>
                       <div className="color">Logout</div>

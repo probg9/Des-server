@@ -106,10 +106,10 @@ export const AdminUsers = () => {
                   <td>{index + 1}</td>
                   <td>{user._id.toString().slice(-6)}</td>
                   <td className="username-cell">
-                    <Link to={`/admin/patients/${user._id}`} className="user-link">
+                    {/* <Link to={`/admin/patients/${user._id}`} className="user-link"> */}
                       <span className="user-icon"><FaUser /></span>
                       {user.username}
-                    </Link>
+                    {/* </Link> */}
                   </td>
                   <td className="email-cell">{user.email}</td>
                   <td>{user.phone || "N/A"}</td>
