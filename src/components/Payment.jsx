@@ -8,12 +8,15 @@ import { useNavigate } from "react-router-dom";
 import { FaRupeeSign, FaCreditCard, FaUser, FaPhone, FaEnvelope } from "react-icons/fa";
 
 const defaultPaymentFormData = {
-  username: "",
-  phone: "",
-  payment_method: "",
-  amount: "",
-  number: "",
-  time: "",
+  name: "",
+  email: '',
+  phone: '',
+  amount: '',
+  payment_purpose: '',
+  payment_date: '',
+  payment_mode: '',
+  transaction_id: '',
+  status: ''
 };
 
 export const Payment = () => {
@@ -26,7 +29,7 @@ export const Payment = () => {
     payment_date: new Date().toISOString().split('T')[0],
     payment_mode: "Cash",
     transaction_id: "",
-    status: "Completed"
+    status: "completed"
   });
 
   const [loading, setLoading] = useState(false);
@@ -48,7 +51,7 @@ export const Payment = () => {
 
     try {
       // Validate required fields
-      if (!paymentData.name || !paymentData.phone || !paymentData.amount || !paymentData.payment_purpose) {
+      if (!paymentData.name || !paymentData.phone || !paymentData.amount || !paymentData.payment_mode) {
         toast.error("Please fill in all required fields");
         return;
       }
@@ -57,7 +60,7 @@ export const Payment = () => {
       console.log("Sending payment data:", paymentData);
 
       // Make sure this URL matches your backend endpoint
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/form/payment`, {
+      const response = await fetch(`https://des-zeta.vercel.app/api/dataform/payment`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

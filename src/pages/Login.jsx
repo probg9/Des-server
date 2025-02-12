@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Navigate } from "react-router-dom";
 
 export const Login = () => {
   const [formData, setFormData] = useState({
@@ -82,7 +83,7 @@ export const Login = () => {
       if (data.token) {
         storeTokenInLS(data.token);
         toast.success("Login successful!");
-        navigate("/");
+        navigate("/gohome");
       } else {
         throw new Error("No token received from server");
       }
@@ -157,6 +158,7 @@ export const Login = () => {
                   type="submit" 
                   className="login-button"
                   disabled={isLoading}
+                  
                 >
                   {isLoading ? "Logging in..." : "Login"}
                 </button>
