@@ -33,7 +33,7 @@ export const AdminLayout = () => {
     <div className="admin-layout">
       <div className={`admin-sidebar ${isMobile && isSidebarOpen ? 'mobile-open' : ''}`}>
         <h2 className="admin-title">Admin Dashboard</h2>
-        <nav className="admin-nav">
+        <nav className={`${isMobile ? isSidebarOpen ? 'admin-nav' : 'admin-nav-active' : 'admin-nav'}`}>
           <NavLink to="/admin/users" className="admin-nav-link">
             <FaUsers /> <span>Users</span>
           </NavLink>
@@ -47,7 +47,7 @@ export const AdminLayout = () => {
             <FaEnvelope /> <span>Messages</span>
           </NavLink>
           <NavLink to="/admin/register" className="admin-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-          <FaUsers /><div >Register</div>
+          <FaUsers /><span >Register</span>
           </NavLink>
         </nav>
       </div>
@@ -61,7 +61,7 @@ export const AdminLayout = () => {
         </button>
       )}
 
-      <div className="admin-content">
+      <div className="admin-content" onClick={() => setIsSidebarOpen(false)}>
         <Outlet />
       </div>
     </div>

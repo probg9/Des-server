@@ -938,7 +938,7 @@ body {
     display: block;
     position: fixed;
     left: 10px;
-    top: 15px;
+    top: 9vh;
     z-index: 1001;
     background: #007bff;
     color: white;
@@ -966,6 +966,10 @@ body {
 
   .admin-sidebar.mobile-open {
     left: 0;
+  }
+  .admin-nav {
+    position: fixed;
+    left: 60vw;
   }
 
   .admin-content {
