@@ -443,7 +443,7 @@ export const AdminForm = () => {
             </thead>
             <tbody style={{overflowX:"hidden"}}>
               {filteredForms.slice(0,formlimit).map((form, index) => (
-                <tr key={form._id}>
+                <tr key={form._id} onClick={() => handleViewDetails(form)}>
                   <td>{index + 1}</td>
                   <td>
                     <button 

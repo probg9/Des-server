@@ -11,6 +11,7 @@ export const Login = () => {
     password: "",
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { storeTokenInLS } = useAuth();
 
@@ -141,7 +142,7 @@ export const Login = () => {
               <div className="form-group">
                 <label htmlFor="password">Password</label>
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   id="password"
                   name="password"
                   className="login-input"
@@ -151,6 +152,14 @@ export const Login = () => {
                   required
                   disabled={isLoading}
                 />
+                <div className="password-toggle">
+                  <input
+                    type="checkbox"
+                    id="showPassword"
+                    onChange={() => setShowPassword(prev => !prev)}
+                  />
+                  <label htmlFor="showPassword">Show Password</label>
+                </div>
               </div>
 
               <div className="button-container">

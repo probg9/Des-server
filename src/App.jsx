@@ -22,7 +22,7 @@ import { AdminUpdate } from "./pages/Admin-Update";
 import { FormsUpdate } from "./pages/Forms-Update.jsx";
 import { PaymentsUpdate } from "./pages/Payments-Update";
 import { Records } from "./pages/Records.jsx";
-import { AdminForm1 } from "./pages/AdminForm1";
+// import { AdminForm1 } from "./pages/AdminForm1";
 import { EditForm } from "./pages/EditForm";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { PatientDetails } from "./pages/PatientDetails";
