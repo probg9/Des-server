@@ -16,7 +16,7 @@ export const AdminPayments = () => {
       setLoading(true);
       setError(null);
       
-      const response = await fetch("https://des-zeta.vercel.app/api/admin/payments", {
+      const response = await fetch("http://localhost:5500/api/admin/payments", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -51,7 +51,7 @@ export const AdminPayments = () => {
     if (window.confirm("Are you sure you want to delete this payment record?")) {
       try {
         const response = await fetch(
-          `https://des-zeta.vercel.app/api/admin/payments/delete/${id}`,
+          `http://localhost:5500/api/admin/payments/delete/${id}`,
           {
             method: "DELETE",
             headers: {

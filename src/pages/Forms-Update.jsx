@@ -23,6 +23,7 @@ export const FormsUpdate = () => {
   const [isGenderFilled, setGenderFilled] = useState(true);
 
   const [user, setUser] = useState({
+    FormId:"",
     DateTime: "",
     FilledBy_Name: "",
     Type_of_form: "",
@@ -127,6 +128,7 @@ export const FormsUpdate = () => {
     KneeRange: "",
     HipRange: "",
     AnkleRange: "",
+    Treatment:"",
     Additional_remarks: "",
 
     // Add more indicate pain properties here as needed
@@ -139,7 +141,7 @@ export const FormsUpdate = () => {
   const getSingleUserData = async () => {
     try {
       const response = await fetch(
-        `https://des-zeta.vercel.app/api/admin/forms/${params.id}`,
+        `http://localhost:5500/api/admin/forms/${params.id}`,
         {
           method: "GET",
           headers: {
@@ -406,6 +408,7 @@ export const FormsUpdate = () => {
     if (!confirmed) return;
     try {
       const formData = new FormData();
+      formData.append("FormId", user.FormId || user._id.toString().slice(16, ));
       formData.append("DateTime", user.DateTime);
       formData.append("FilledBy_Name", user.FilledBy_Name);
       formData.append("Name", user.Name);
@@ -531,9 +534,10 @@ export const FormsUpdate = () => {
       formData.append("KneeRange", user.KneeRange);
       formData.append("HipRange", user.HipRange);
       formData.append("AnkleRange", user.AnkleRange);
+      formData.append("Treatment", user.Treatment);
       formData.append("Additional_remarks", user.Additional_remarks);
 
-      const response = await fetch("https://des-zeta.vercel.app/api/dataform/form", {
+      const response = await fetch("http://localhost:5500/api/dataform/form", {
         method: "POST",
         body: formData,
       });
@@ -541,6 +545,7 @@ export const FormsUpdate = () => {
       if (response.ok) {
         const responseData = await response.json();
         setUser({
+          FormId:"",
           DateTime: "",
           FilledBy_Name: "",
           Type_of_form: "",
@@ -645,6 +650,7 @@ export const FormsUpdate = () => {
           KneeRange: "",
           HipRange: "",
           AnkleRange: "",
+          Treatment:"",
           Additional_remarks: "",
         });
 
@@ -656,6 +662,8 @@ export const FormsUpdate = () => {
       console.log(error);
     }
   };
+  
+
 
   return (
     <main>
@@ -663,6 +671,17 @@ export const FormsUpdate = () => {
       <body className="back">
         <div className="back2">
           <form onSubmit={handleSubmit}>
+          <div className="element">
+              Form ID
+              <input
+                className="box"
+                type="text"
+                id="FromId"
+                name="FormId"
+                value={user.FormId || user._id}
+                readOnly
+              />
+            </div>
             <div className="element">
               Date and Time
               <br />
@@ -11661,11 +11680,23 @@ export const FormsUpdate = () => {
               />
             </div>
             <div className="element">
+              Treatment
+              <br />
+              <br />
+              <textarea
+                style={{ height: "100px", width: "600px" }}
+                placeholder=" Enter the Treatment information(if necessary)"
+                name="Treatment"
+                onChange={handleInput}
+                value={user.Treatment}
+              />
+            </div>
+            <div className="element" style={{ marginTop:"70px" }}>
               Additional Remarks
               <br />
               <br />
               <textarea
-                style={{ height: "100px", width: "500px" }}
+                style={{ height: "100px", width: "600px" }}
                 placeholder=" Enter the additional information(if necessary)"
                 name="Additional_remarks"
                 onChange={handleInput}

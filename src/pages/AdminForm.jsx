@@ -19,7 +19,7 @@ export const AdminForm = () => {
       setLoading(true);
       setError(null);
       
-      const response = await fetch("https://des-zeta.vercel.app/api/admin/forms", {
+      const response = await fetch("http://localhost:5500/api/admin/forms", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -55,7 +55,7 @@ export const AdminForm = () => {
     if (window.confirm("Are you sure you want to delete this form?")) {
     try {
       const response = await fetch(
-        `https://des-zeta.vercel.app/api/admin/forms/delete/${id}`,
+        `http://localhost:5500/api/admin/forms/delete/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -412,6 +412,13 @@ export const AdminForm = () => {
 
               {/* Additional Information */}
               <div className="detail-section full-width">
+                <h3>Treatment Information</h3>
+                <div className="detail-group">
+                  <label>Treatment:</label>
+                  <span>{selectedForm.Treatment}</span>
+                </div>
+              </div>
+              <div className="detail-section full-width">
                 <h3>Additional Information</h3>
                 <div className="detail-group">
                   <label>Additional Remarks:</label>
@@ -442,7 +449,9 @@ export const AdminForm = () => {
               </tr>
             </thead>
             <tbody style={{overflowX:"hidden"}}>
-              {filteredForms.slice(0,formlimit).map((form, index) => (
+              {filteredForms.slice(0, formlimit)
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Sort by createdAt in descending order
+    .map((form, index) => (
                 <tr key={form._id} onClick={() => handleViewDetails(form)}>
                   <td>{index + 1}</td>
                   <td>
@@ -451,7 +460,7 @@ export const AdminForm = () => {
                       onClick={() => handleViewDetails(form)}
                       title="Click to view details"
                     >
-                      {form._id.toString().slice(16, )}
+                      {form.FormId || form._id.toString().slice(16, )}
                     </button>
                   </td>
                   <td>{form.Name ? form.Name.toUpperCase() : "N/A"}</td>
