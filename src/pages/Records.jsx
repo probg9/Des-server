@@ -11,7 +11,7 @@ export const Records = () => {
 
   const getAllUsersData = async () => {
     try {
-      const response = await fetch("http://localhost:5500/api/adminz/records", {
+      const response = await fetch("https://des-zeta.vercel.app/api/adminz/records", {
         method: "GET",
         headers: {
           Authorization: authorizationToken,
@@ -32,7 +32,7 @@ export const Records = () => {
     if (!confirmed) return;
     try {
       const response = await fetch(
-        `http://localhost:5500/api/admin/records/delete/${id}`,
+        `https://des-zeta.vercel.app/api/admin/records/delete/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -122,10 +122,10 @@ export const Records = () => {
 
               {filteredUsers.map((curUser, index) => {
                 const gaitImageUri = curUser.GaitImage
-                  ? `http://localhost:5500/${curUser.GaitImage}`
+                  ? `https://des-zeta.vercel.app/${curUser.GaitImage}`
                   : null;
                 const postureImageUri = curUser.PostureImage
-                  ? `http://localhost:5500/${curUser.PostureImage}`
+                  ? `https://des-zeta.vercel.app/${curUser.PostureImage}`
                   : null;
                 return (
                   <React.Fragment key={index}>
