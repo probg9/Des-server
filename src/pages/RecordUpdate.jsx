@@ -23,6 +23,7 @@ export const RecordUpdate = () => {
   const [isGenderFilled, setGenderFilled] = useState(true);
 
   const [user, setUser] = useState({
+    FromId:"",
     DateTime: "",
     FilledBy_Name: "",
     Type_of_form: "",
@@ -139,7 +140,7 @@ export const RecordUpdate = () => {
   const getSingleUserData = async () => {
     try {
       const response = await fetch(
-        `https://des-zeta.vercel.app/api/admin/records/${params.id}`,
+        `http://localhost:5500/api/admin/records/${params.id}`,
         {
           method: "GET",
           headers: {
@@ -405,6 +406,7 @@ export const RecordUpdate = () => {
     if (!confirmed) return;
     try {
       const formData = new FormData();
+      formData.append("FormId", user.FormId);
       formData.append("DateTime", user.DateTime);
       formData.append("FilledBy_Name", user.FilledBy_Name);
       formData.append("Name", user.Name);
@@ -532,7 +534,7 @@ export const RecordUpdate = () => {
       formData.append("AnkleRange", user.AnkleRange);
       formData.append("Additional_remarks", user.Additional_remarks);
 
-      const response = await fetch("https://des-zeta.vercel.app/api/dataform/form", {
+      const response = await fetch("http://localhost:5500/api/dataform/form", {
         method: "POST",
         body: formData,
       });
@@ -540,6 +542,7 @@ export const RecordUpdate = () => {
       if (response.ok) {
         const responseData = await response.json();
         setUser({
+          FormId:"",
           DateTime: "",
           FilledBy_Name: "",
           Type_of_form: "",

@@ -16,7 +16,7 @@ export const PatientDetails = () => {
       try {
         setLoading(true);
         // Fetch user data
-        const userResponse = await fetch(`https://des-zeta.vercel.app/api/admin/users/${id}`, {
+        const userResponse = await fetch(`http://localhost:5500/api/admin/users/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -24,7 +24,7 @@ export const PatientDetails = () => {
         const userData = await userResponse.json();
 
         // Fetch forms data for this user
-        const formsResponse = await fetch(`https://des-zeta.vercel.app/api/admin/forms/user/${id}`, {
+        const formsResponse = await fetch(`http://localhost:5500/api/admin/forms/user/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

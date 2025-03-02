@@ -7,7 +7,7 @@ export const AdminForm = () => {
   const { authorizationToken } = useAuth();
   const getAllUsersData = async () => {
     try {
-      const response = await fetch("https://des-zeta.vercel.app/api/admin/forms", {
+      const response = await fetch("http://localhost:5500/api/admin/forms", {
         method: "GET",
         headers: {
           Authorization: authorizationToken,

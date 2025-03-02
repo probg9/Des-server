@@ -18,12 +18,14 @@ export const Forms = () => {
     }
   };
   const [currentDateTime, setCurrentDateTime] = useState("");
+  const [formId, setFormId] = useState("");
   const [isTypeOfFormFilled, setTypeOfFormFilled] = useState(true);
   const [isTypeOfPatientFilled, setTypeOfPatientFilled] = useState(true);
 
   const [isGenderFilled, setGenderFilled] = useState(true);
 
   const [user, setUser] = useState({
+    FormId: "",
     DateTime: "",
     FilledBy_Name: "",
     Type_of_form: "",
@@ -128,6 +130,7 @@ export const Forms = () => {
     KneeRange: "",
     HipRange: "",
     AnkleRange: "",
+    Treatment:"",
     Additional_remarks: "",
   });
 
@@ -376,6 +379,7 @@ export const Forms = () => {
     if (!confirmed) return;
     try {
       const formData = new FormData();
+      formData.append("FormId", user.FormId);
       formData.append("DateTime", user.DateTime);
       formData.append("FilledBy_Name", user.FilledBy_Name);
       formData.append("Name", user.Name);
@@ -502,9 +506,10 @@ export const Forms = () => {
       formData.append("KneeRange", user.KneeRange);
       formData.append("HipRange", user.HipRange);
       formData.append("AnkleRange", user.AnkleRange);
+      formData.append("Treatment", user.Treatment);
       formData.append("Additional_remarks", user.Additional_remarks);
-
-      const response = await fetch("https://des-zeta.vercel.app/api/dataform/form", {
+//http://localhost:5500
+      const response = await fetch("http://localhost:5500/api/dataform/form", {
         method: "POST",
         body: formData,
       });
@@ -512,6 +517,7 @@ export const Forms = () => {
       if (response.ok) {
         const responseData = await response.json();
         setUser({
+          FormId: "",
           DateTime: "",
           FilledBy_Name: "",
           Type_of_form: "",
@@ -616,6 +622,7 @@ export const Forms = () => {
           KneeRange: "",
           HipRange: "",
           AnkleRange: "",
+          Treatment:"",
           Additional_remarks: "",
         });
 
@@ -628,6 +635,30 @@ export const Forms = () => {
       toast.error(error)
     }
   };
+  // DateTime
+  useEffect(() => {
+    const now = new Date();
+    const year = now.getFullYear().toString().slice(-2); // Get last 2 digits of the year
+    const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Get month (01-12)
+    const day = (now.getDate()).toString().padStart(2, '0');
+    const sec = now.getMilliseconds().toString().slice(-2).padStart(2,'0');
+    const randomDigits = Math.floor(1000 + Math.random() * 9000); // Generate a random 4-digit number
+    const formattedFormId = `${year}${month}${day}-${randomDigits}-${sec}`; // Combine to form ID
+    setFormId(formattedFormId);
+    setUser((prevUser) => ({
+      ...prevUser,
+      FormId: formattedFormId,
+    }));
+  }, []);
+  // const generateFormId = () => {
+  //   const now = new Date();
+  //   const year = now.getFullYear().toString().slice(-2); // Get last 2 digits of the year
+  //   const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Get month (01-12)
+  //   const day = (now.getDate()).toString().padStart(2, '0');
+  //   const sec = now.getMilliseconds().toString().slice(-2).padStart(2,'0');
+  //   const randomDigits = Math.floor(1000 + Math.random() * 9000); // Generate a random 4-digit number
+  //   return `${year}${month}${day}-${randomDigits}-${sec}`; // Combine to form ID
+  // };
 
   return (
     <main>
@@ -652,6 +683,17 @@ export const Forms = () => {
         <br />
         <div className="back2">
           <form onSubmit={handleSubmit}>
+            <div className="element">
+              Form ID
+              <input
+                className="box"
+                type="text"
+                id="FormId"
+                name="FormId"
+                value= {formId}
+                readOnly
+              />
+            </div>
             <div className="element">
               Date and Time <div className="star"> * </div>
               <br />
@@ -11627,11 +11669,25 @@ export const Forms = () => {
               />
             </div>
             <div className="element">
-              Additional Remarks
+              Treatment
               <br />
               <br />
               <textarea
                 // style={{ height: "100px", width: "max-content" }}
+                className="Additional"
+                placeholder=" Enter the treatment information(if necessary)"
+                name="Treatment"
+                onChange={handleInput}
+                value={user.Treatment}
+              />
+            </div>
+            <br/>
+            <div className="element" style={{ marginTop:"70px" }}>
+              Additional Remarks
+              <br />
+              <br />
+              <textarea
+               
                 className="Additional"
                 placeholder=" Enter the additional information(if necessary)"
                 name="Additional_remarks"

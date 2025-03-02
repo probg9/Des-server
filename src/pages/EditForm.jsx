@@ -12,7 +12,7 @@ export const EditForm = () => {
   useEffect(() => {
     const fetchFormData = async () => {
       try {
-        const response = await fetch(`https://des-zeta.vercel.app/api/admin/forms/${id}`, {
+        const response = await fetch(`http://localhost:5500/api/admin/forms/${id}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${authorizationToken}`,
@@ -38,7 +38,7 @@ export const EditForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`https://des-zeta.vercel.app/api/admin/forms/update/${id}`, {
+      const response = await fetch(`http://localhost:5500/api/admin/forms/update/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
