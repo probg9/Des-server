@@ -60,7 +60,7 @@ export const Payment = () => {
       console.log("Sending payment data:", paymentData);
 
       // Make sure this URL matches your backend endpoint
-      const response = await fetch(`http://localhost:5500/api/dataform/payment`, {
+      const response = await fetch(`https://des-zeta.vercel.app/api/dataform/payment`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

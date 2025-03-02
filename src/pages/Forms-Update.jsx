@@ -141,7 +141,7 @@ export const FormsUpdate = () => {
   const getSingleUserData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5500/api/admin/forms/${params.id}`,
+        `https://des-zeta.vercel.app/api/admin/forms/${params.id}`,
         {
           method: "GET",
           headers: {
@@ -537,7 +537,7 @@ export const FormsUpdate = () => {
       formData.append("Treatment", user.Treatment);
       formData.append("Additional_remarks", user.Additional_remarks);
 
-      const response = await fetch("http://localhost:5500/api/dataform/form", {
+      const response = await fetch("https://des-zeta.vercel.app/api/dataform/form", {
         method: "POST",
         body: formData,
       });

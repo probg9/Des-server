@@ -508,8 +508,8 @@ export const Forms = () => {
       formData.append("AnkleRange", user.AnkleRange);
       formData.append("Treatment", user.Treatment);
       formData.append("Additional_remarks", user.Additional_remarks);
-//http://localhost:5500
-      const response = await fetch("http://localhost:5500/api/dataform/form", {
+//https://des-zeta.vercel.app
+      const response = await fetch("https://des-zeta.vercel.app/api/dataform/form", {
         method: "POST",
         body: formData,
       });
